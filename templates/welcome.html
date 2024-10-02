@@ -39,7 +39,7 @@
         {% endwith %}
 
         <!-- Points Display -->
-        <p>Points available: {{ club['points'] }}</p>
+        <p><strong>Points available:</strong> {{ club['points'] }}</p>
 
         <!-- Competitions List -->
         <h3>Competitions:</h3>
@@ -50,7 +50,13 @@
                     Date: {{ comp['date'] }}<br>
                     Number of Places: {{ comp['numberOfPlaces'] }}
                     {% if comp['numberOfPlaces']|int > 0 %}
-                        <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="btn btn-primary mt-2">Book Places</a>
+                        <form action="{{ url_for('book', competition=comp['name'], club=club['name']) }}" method="get" class="mt-2">
+                            <button type="submit" class="btn btn-primary" {% if club['points']|int == 0 %}disabled{% endif %}>
+                                Book Places
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-danger mt-2">No places available</p>
                     {% endif %}
                 </li>
             {% endfor %}
