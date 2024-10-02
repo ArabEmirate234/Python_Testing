@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>Booking for {{competition['name']}} || GUDLFT</title> -->
     <title>Booking for {{ competition['name'] }} || GUDLFT</title>
+    
+    <!-- Integration of Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -14,10 +14,12 @@
             margin: 0;
             padding: 0;
         }
+
         .navbar {
             background-color: #343a40;
             padding: 20px 0;
         }
+
         .navbar-brand {
             color: #fff;
             font-size: 24px;
@@ -26,12 +28,15 @@
     </style>
 </head>
 <body>
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">GUDLFT</a>
         </div>
     </nav>
 
+    <!-- Booking Form -->
     <div class="container mt-5">
         <h2>{{ competition['name'] }}</h2>
         <p>Places available: {{ competition['numberOfPlaces'] }}</p>
@@ -40,24 +45,15 @@
             <input type="hidden" name="competition" value="{{ competition['name'] }}">
             <div class="form-group">
                 <label for="places">How many places?</label>
-                <input type="number" class="form-control" name="places" id="places" min="0" max="12" required>
+                <input type="number" class="form-control" name="places" id="" min="0" max="12" required>
             </div>
-            <button type="submit" class="btn btn-primary">Book</button>
+            <button type="submit" class="btn btn-primary mt-3">Book</button>
         </form>
     </div>
 
-    
+    <!-- Integration of Bootstrap JS (optional, only if necessary) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- <h2>{{competition['name']}}</h2>
-    Places available: {{competition['numberOfPlaces']}}
-    <form action="/purchasePlaces" method="post">
-        <input type="hidden" name="club" value="{{club['name']}}">
-        <input type="hidden" name="competition" value="{{competition['name']}}">
-        <label for="places">How many places?</label><input type="number" name="places" id="" min="0" max="12" required/>
-        <button type="submit">Book</button> -->
-    </form>
 </body>
-
 </html>

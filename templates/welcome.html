@@ -1,84 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Purchase of tickets</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <span class="navbar-text">
-                            Welcome, {{ club['email'] }}
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    <!-- {% with messages = get_flashed_messages()%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-    {% endif%}
-    Points available: {{club['points']}}
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
-    {%endwith%} -->
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Purchase of Tickets</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="navbar-text">
+                        Welcome, {{ club['email'] }}
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container mt-3">
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <ul class="list-group">
+                <ul class="list-group mb-3">
                     {% for message in messages %}
-                        <li class="list-group-item">{{ message }}</li>
+                        <li class="list-group-item list-group-item-warning">{{ message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
         {% endwith %}
+
+        <!-- Points Display -->
         <p>Points available: {{ club['points'] }}</p>
+
+        <!-- Competitions List -->
         <h3>Competitions:</h3>
         <ul class="list-group">
             {% for comp in competitions %}
                 <li class="list-group-item">
-                    {{ comp['name'] }}<br>
+                    <strong>{{ comp['name'] }}</strong><br>
                     Date: {{ comp['date'] }}<br>
                     Number of Places: {{ comp['numberOfPlaces'] }}
                     {% if comp['numberOfPlaces']|int > 0 %}
-                        <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="btn btn-primary">Book Places</a>
+                        <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="btn btn-primary mt-2">Book Places</a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
     </div>
 
+    <!-- Bootstrap JS (Optional) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
-
-
 </html>
