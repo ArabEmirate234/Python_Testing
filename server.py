@@ -43,7 +43,7 @@ def book(competition, club):
     if foundClub and foundCompetition:
         return render_template('booking.html', club=foundClub, competition=foundCompetition)
     else:
-        flash("Something went wrong-please try again")
+        flash("Something went wrong - please try again")
         return render_template('welcome.html', club=foundClub, competitions=competitions)
 
 @app.route('/purchasePlaces', methods=['POST'])
@@ -56,7 +56,7 @@ def purchasePlaces():
         flash("Competition or club not found.")
         return redirect(url_for('index'))
 
-   
+    
     if int(club['points']) < placesRequired:
         flash('Point insuffisant!')
         return render_template('welcome.html', club=club, competitions=competitions)
@@ -67,11 +67,15 @@ def purchasePlaces():
         return render_template('welcome.html', club=club, competitions=competitions)
 
     
+    if placesRequired > 12:
+        flash('Vous ne pouvez pas réserver plus de 12 places.')
+        return render_template('welcome.html', club=club, competitions=competitions)
+
+    
     competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
     club['points'] = int(club['points']) - placesRequired
-    flash('Great - booking complete!')
+    flash(f'Great - {placesRequired} places booked!')
     return render_template('welcome.html', club=club, competitions=competitions)
-
 
 @app.route('/points')
 def points():
