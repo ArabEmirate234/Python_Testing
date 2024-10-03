@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!-- Navbar -->
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Purchase of Tickets</a>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -27,7 +27,7 @@
     </nav>
 
     <div class="container mt-3">
-        <!-- Flash Messages -->
+        
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="list-group mb-3">
@@ -38,20 +38,24 @@
             {% endif %}
         {% endwith %}
 
-        <!-- Points Display -->
+        
         <p><strong>Points available:</strong> {{ club['points'] }}</p>
 
-        <!-- Competitions List -->
+        
         <h3>Competitions:</h3>
         <ul class="list-group">
             {% for comp in competitions %}
                 <li class="list-group-item">
                     <strong>{{ comp['name'] }}</strong><br>
                     Date: {{ comp['date'] }}<br>
-                    Number of Places: {{ comp['numberOfPlaces'] }}
+                    Number of Places: {{ comp['numberOfPlaces'] }}<br>
+                    
+                    <small class="text-muted">You can book up to 12 places in a single transaction.</small>
+                    
                     {% if comp['numberOfPlaces']|int > 0 %}
                         <form action="{{ url_for('book', competition=comp['name'], club=club['name']) }}" method="get" class="mt-2">
-                            <button type="submit" class="btn btn-primary" {% if club['points']|int == 0 %}disabled{% endif %}>
+                            <button type="submit" class="btn btn-primary"
+                                    {% if club['points']|int == 0 or comp['numberOfPlaces']|int == 0 %}disabled{% endif %}>
                                 Book Places
                             </button>
                         </form>
