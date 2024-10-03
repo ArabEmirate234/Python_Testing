@@ -48,30 +48,37 @@ def book(competition, club):
 
 @app.route('/purchasePlaces', methods=['POST'])
 def purchasePlaces():
-    competition = next((c for c in competitions if c['name'] == request.form['competition']), None)
-    club = next((c for c in clubs if c['name'] == request.form['club']), None)
-    placesRequired = int(request.form['places'])
-
+    competition_name = request.form['competition']
+    club_name = request.form['club']
+    competition = next((c for c in competitions if c['name'] == competition_name), None)
+    club = next((c for c in clubs if c['name'] == club_name), None)
+   
+    try:
+        placesRequired = int(request.form['places'])  # Attempt to convert input to an integer
+    except ValueError:
+        flash('Erreur : Le nombre de places doit être un entier valide.')
+        return render_template('welcome.html', club=club, competitions=competitions)
+    
     if not competition or not club:
         flash("Competition or club not found.")
         return redirect(url_for('index'))
 
-    
+    # Check if the club has enough points
     if int(club['points']) < placesRequired:
         flash('Point insuffisant!')
         return render_template('welcome.html', club=club, competitions=competitions)
 
-    
+    # Check if the competition has enough places available
     if int(competition['numberOfPlaces']) < placesRequired:
         flash('Nombre de places insuffisant!')
         return render_template('welcome.html', club=club, competitions=competitions)
 
-    
+    # Check if the requested places exceed the maximum booking limit
     if placesRequired > 12:
         flash('Vous ne pouvez pas réserver plus de 12 places.')
         return render_template('welcome.html', club=club, competitions=competitions)
 
-    
+    # Deduct points and update available places
     competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
     club['points'] = int(club['points']) - placesRequired
     flash(f'Great - {placesRequired} places booked!')

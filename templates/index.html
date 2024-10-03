@@ -119,7 +119,7 @@
         <thead>
             <tr>
                 <th>Nom du club</th>
-                <th>Email</th>
+                <!-- <th>Email</th> -->
                 <th>Points disponibles</th>
             </tr>
         </thead>
@@ -127,7 +127,7 @@
             {% for club in clubs %}
             <tr>
                 <td>{{ club['name'] }}</td>
-                <td>{{ club['email'] }}</td>
+                <!-- <td>{{ club['email'] }}</td> -->
                 <td>{{ club['points'] }}</td>
             </tr>
             {% endfor %}
@@ -140,16 +140,16 @@
         <thead>
             <tr>
                 <th>Nom competition</th>
-                <th>Date</th>
                 <th>Place disponible</th>
+                <th>Date</th>
             </tr>
         </thead>
         <tbody>
             {% for comp in competitions %}
             <tr>
                 <td>{{ comp['name'] }}</td>
-                <td>{{ comp['date'] }}</td>
                 <td>{{ comp['numberOfPlaces'] }}</td>
+                <td>{{ comp['date'] }}</td>
             </tr>
             {% endfor %}
         </tbody>
